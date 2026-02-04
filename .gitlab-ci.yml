@@ -21,8 +21,7 @@ npm_test_artifacts:
   dependencies:
     - npm_test
   script:
-    - ls -la build/indexs.html
-    - echo "Artifacts from npm_test are available."
+    - test -f build/index.html
 
 py_test:
   stage: build
