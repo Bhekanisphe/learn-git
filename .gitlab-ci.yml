@@ -34,7 +34,7 @@ unit_test:
   artifacts:
     when: always
     reports:
-      junit: test-results.xml
+      junit: reports/junit.xml
 
 py_test:
   stage: build
