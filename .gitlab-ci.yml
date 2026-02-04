@@ -14,3 +14,12 @@ npm_test:
   artifacts:
     paths:
       - build/
+
+py_test:
+  stage: build
+  image: python:3.12-alpine
+  script:
+    - python --version
+    - pip install
+    - pip ci
+    - pip run build
