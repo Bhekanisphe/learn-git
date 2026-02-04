@@ -20,7 +20,7 @@ npm_test_artifacts:
   stage: test
   image: node:22-alpine
   dependencies:
-    - npm_test
+    - npm_build
   script:
     - test -f build/index.html
 
