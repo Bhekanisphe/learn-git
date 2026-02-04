@@ -1,6 +1,14 @@
+stages:
+  - build
+  - test
+
 npm_test:
-  stage: test
-  image: node:16
+  stage: build
+  image: node:22-alpine
   script:
+    - node --version
     - npm install
-    - npm test
+    - ls -la
+    - npm ci
+    - npm run build
+    - ls -la
