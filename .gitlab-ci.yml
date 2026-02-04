@@ -31,6 +31,10 @@ unit_test:
     - npm install
     - npm ci
     - npm test
+  artifacts:
+    when: always
+    reports:
+      junit: test-results.xml
 
 py_test:
   stage: build
