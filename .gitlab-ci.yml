@@ -15,6 +15,15 @@ npm_test:
     paths:
       - build/
 
+npm_test_artifacts:
+  stage: test
+  image: node:22-alpine
+  dependencies:
+    - npm_test
+  script:
+    - ls -la build/index.html
+    - echo "Artifacts from npm_test are available."
+
 py_test:
   stage: build
   image: python:3.12-alpine
