@@ -22,4 +22,4 @@ py_test:
     - python --version
     - pip install --upgrade pip
     - pip install build
-    - python -m build
+    - python src/hello.py
