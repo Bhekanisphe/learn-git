@@ -22,5 +22,5 @@ py_test:
     - python --version
     - pip install --upgrade pip
     - pip install build
-    - build -t my-python-app
+    - build -t hello.py
     - run -it --rm --name my-running-app my-python-app
