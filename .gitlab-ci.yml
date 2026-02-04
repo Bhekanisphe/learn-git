@@ -10,3 +10,7 @@ npm_test:
     - npm install
     - npm ci
     - npm run build
+
+  artifacts:
+    paths:
+      - build/
