@@ -1,8 +1,9 @@
 stages:
   - build
   - test
+  - unit
 
-npm_test:
+npm_build:
   stage: build
   image: node:22-alpine
   script:
@@ -22,6 +23,14 @@ npm_test_artifacts:
     - npm_test
   script:
     - test -f build/index.html
+
+unit_test:
+  stage: unit
+  image: node:22-alpine
+  script:
+    - npm install
+    - npm ci
+    - npm test
 
 py_test:
   stage: build
