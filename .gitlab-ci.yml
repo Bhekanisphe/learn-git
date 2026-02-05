@@ -97,10 +97,13 @@ terraform_validate:
   stage: validate
   script:
     - terraform validate
-    
+
 terraform_plan:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   stage: plan
+  artifacts:
+    path: 
+      - /build
   script:
     - terraform plan
 
