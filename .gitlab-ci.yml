@@ -98,7 +98,6 @@ terraform_validate:
   script:
     - terraform help
 
-n
 
 
 
