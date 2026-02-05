@@ -75,3 +75,15 @@ npm_build:
     - pip install --upgrade pip
     - pip install build
     - python src/hello.py
+
+aws_s3:
+  stage: .pre
+  image: 
+    name: amazon/aws-cli
+    entyrpoint: ['']
+  variables:
+    aws_access_key_id: 'AKIAZQSSSVTD4I5LKJN3'
+    region: 'af-south-1'
+  script:
+    - aws s3 ls
+
