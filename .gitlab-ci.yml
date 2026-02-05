@@ -1,8 +1,11 @@
+variables:
+  NETLIFY_SITE_ID: "7924d100-467c-4fe6-912d-c16cdd178bd3"
 stages:
   - build
   - test
   - unit
-  - deploy
+  - deploy_stg
+  - deploy_prod
 
 npm_build:
   stage: build
@@ -37,13 +40,25 @@ unit_test:
     reports:
       junit: reports/junit.xml
 
-netlify:
+netlify_stg:
   image: node:22-alpine
-  stage : deploy
+  stage : deploy_stg
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  variables:
-    NETLIFY_SITE_ID: "7924d100-467c-4fe6-912d-c16cdd178bd3"
+  script:
+    - npm install -g netlify-cli@20.1.1
+    - netlify --version
+    - netlify status
+    - echo "Deploying to Netlify $NETLIFY_SITE_ID"
+    - netlify deploy --prod --dir build
+    - apk add curl
+    - curl "https://staging--bhekani-tut.netlify.app" | grep 'GitLab'
+
+netlify_prod:
+  image: node:22-alpine
+  stage : deploy_prod
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
     - npm install -g netlify-cli@20.1.1
     - netlify --version
