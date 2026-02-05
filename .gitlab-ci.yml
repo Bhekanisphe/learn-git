@@ -118,5 +118,5 @@ terraform_apply:
   script:
     - cd src/
     - terraform init
-    - terraform apply
+    - terraform apply -auto-approve
 
