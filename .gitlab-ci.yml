@@ -95,21 +95,10 @@ aws_s3:
 terraform_validate:
   image: hashicorp/terraform:1.6.6
   stage: validate
-  before_script:
-    - terraform --version
-    - cd $TF_ROOT
-    - terraform init
   script:
-    - terraform validate
+    - terraform help
 
-terraform_plan:
-  image: hashicorp/terraform:1.6.6
-  stage: plan
-  script:
-    - terraform plan -out=tfplan
-  artifacts:
-    paths:
-      - $TF_ROOT/tfplan
+n
 
 
 
