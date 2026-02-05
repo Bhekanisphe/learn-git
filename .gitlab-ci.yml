@@ -12,7 +12,7 @@ stages:
   - plan
   - apply
 
-npm_build:
+.npm_build:
   stage: build
   image: node:22-alpine
   script:
