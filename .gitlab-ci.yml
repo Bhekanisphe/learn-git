@@ -1,11 +1,16 @@
 variables:
   NETLIFY_SITE_ID: "7924d100-467c-4fe6-912d-c16cdd178bd3"
+  TF_ROOT: "."
+
 stages:
   - build
   - test
   - unit
   - deploy_stg
   - deploy_prod
+  - validate
+  - plan
+  - apply
 
 npm_build:
   stage: build
@@ -86,5 +91,26 @@ aws_s3:
   script:
     - aws --version
     - aws s3 ls
+
+terraform_validate:
+  image: hashicorp/terraform:1.6.6
+  stage: validate
+  before_script:
+    - terraform --version
+    - cd $TF_ROOT
+    - terraform init
+  script:
+    - terraform validate
+
+terraform_plan:
+  image: hashicorp/terraform:1.6.6
+  stage: plan
+  script:
+    - terraform plan -out=tfplan
+  artifacts:
+    paths:
+      - $TF_ROOT/tfplan
+
+
 
 
