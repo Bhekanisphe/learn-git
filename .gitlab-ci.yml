@@ -84,7 +84,6 @@ aws_s3:
   variables:
     region: 'af-south-1'
   script:
-    - aws configure set region $region
     - aws login
     - aws s3 ls
 
