@@ -50,9 +50,7 @@ netlify_stg:
     - netlify --version
     - netlify status
     - echo "Deploying to Netlify $NETLIFY_SITE_ID"
-    - netlify deploy --prod --dir build
-    - apk add curl
-    - curl "https://staging--bhekani-tut.netlify.app" | grep 'GitLab'
+    - netlify deploy --alias staging --dir build
 
 netlify_prod:
   image: node:22-alpine
