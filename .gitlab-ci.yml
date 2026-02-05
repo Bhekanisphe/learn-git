@@ -93,12 +93,7 @@ aws_s3:
     - aws s3 ls
 
 terraform_validate:
-  image: hashicorp/terraform:1.14
+  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   stage: validate
   script:
     - terraform help
-
-
-
-
-
