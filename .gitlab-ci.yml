@@ -109,3 +109,13 @@ terraform_plan:
     - terraform init
     - terraform plan
 
+terraform_apply:
+  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
+  stage: apply
+  artifacts:
+    paths: 
+      - /build
+  script:
+    - cd src/
+    - terraform apply
+
