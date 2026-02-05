@@ -117,5 +117,6 @@ terraform_apply:
       - /build
   script:
     - cd src/
+    - terraform init
     - terraform apply
 
