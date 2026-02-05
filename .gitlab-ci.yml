@@ -20,7 +20,7 @@ npm_build:
     paths:
       - build/
 
-npm_test_artifacts:
+.npm_test_artifacts:
   stage: test
   image: node:22-alpine
   dependencies:
@@ -28,7 +28,7 @@ npm_test_artifacts:
   script:
     - test -f build/index.html
 
-unit_test:
+.unit_test:
   stage: test
   image: node:22-alpine
   script:
@@ -40,7 +40,7 @@ unit_test:
     reports:
       junit: reports/junit.xml
 
-netlify_stg:
+.netlify_stg:
   image: node:22-alpine
   stage : deploy_stg
   rules:
@@ -52,7 +52,7 @@ netlify_stg:
     - echo "Deploying to Netlify $NETLIFY_SITE_ID"
     - netlify deploy --alias staging --dir build
 
-netlify_prod:
+.netlify_prod:
   image: node:22-alpine
   stage : deploy_prod
   rules:
@@ -67,7 +67,7 @@ netlify_prod:
     - curl "https://bhekani-tut.netlify.app" | grep 'GitLab'
 
 
-py_test:
+.py_test:
   stage: build
   image: python:3.12-alpine
   script:
