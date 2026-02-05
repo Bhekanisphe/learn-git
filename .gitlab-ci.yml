@@ -96,4 +96,4 @@ terraform_validate:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   stage: validate
   script:
-    - terraform -help
+    - terraform validate
