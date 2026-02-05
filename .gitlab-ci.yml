@@ -82,7 +82,6 @@ aws_s3:
     name: amazon/aws-cli
     entrypoint: ['']
   variables:
-    aws_access_key_id: 'AKIAZQSSSVTD4I5LKJN3'
     region: 'af-south-1'
   script:
     - aws configure set region $region
