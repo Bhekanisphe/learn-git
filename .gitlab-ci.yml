@@ -1,13 +1,18 @@
 variables:
   NETLIFY_SITE_ID: "7924d100-467c-4fe6-912d-c16cdd178bd3"
+  TF_ROOT: "."
+
 stages:
   - build
   - test
   - unit
   - deploy_stg
   - deploy_prod
+  - validate
+  - plan
+  - apply
 
-npm_build:
+.npm_build:
   stage: build
   image: node:22-alpine
   script:
@@ -75,3 +80,43 @@ npm_build:
     - pip install --upgrade pip
     - pip install build
     - python src/hello.py
+
+aws_s3:
+  stage: .pre
+  image: 
+    name: amazon/aws-cli
+    entrypoint: ['']
+  variables:
+    region: 'af-south-1'
+  script:
+    - aws --version
+    - aws s3 ls
+
+terraform_validate:
+  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
+  stage: validate
+  script:
+    - terraform validate
+
+terraform_plan:
+  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
+  stage: plan
+  artifacts:
+    paths: 
+      - /build
+  script:
+    - cd src/
+    - terraform init
+    - terraform plan
+
+.terraform_apply:
+  image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
+  stage: apply
+  artifacts:
+    paths: 
+      - /build
+  script:
+    - cd src/
+    - terraform init
+    - terraform apply -auto-approve
+
