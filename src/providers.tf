@@ -16,3 +16,9 @@ terraform {
 provider "aws" {
   region = "af-south-1"
 }
+
+
+provider "gitlab" {
+  token    = var.gitlab_token
+  base_url = "https://gitlab.com/bhekani.mdletsher-group/learn-gitlab-app.git"
+}

@@ -2,5 +2,5 @@ variable "instance_id" {}
 
 variable "token" {
   type = string
+  sensitive = true
 }
-import TF_VAR_token="$TOKEN"
