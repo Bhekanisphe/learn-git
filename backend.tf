@@ -1,8 +1,4 @@
-variable "token" {
-  type = string
-}
 
-export TF_VAR_token="$TOKEN"
 
 terraform{
     backend "http"{
