@@ -101,12 +101,16 @@ terraform_validate:
 terraform_plan:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   stage: plan
+  variables:
+    GITLAB_ACCESS_TOKEN: $TOKEN
+    TF_STATE_NAME: "default"
   artifacts:
     paths: 
       - /build
   script:
     - cd src/
-    - terraform init
+    - export HTTP_PASSWORD=$TOKEN
+    - terraform init -backend-config="address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME" -backend-config="lock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="unlock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="username=bhekani.mdletsher"-backend-config="password=$GITLAB_ACCESS_TOKEN" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5"
     - terraform plan
 
 .terraform_apply:
