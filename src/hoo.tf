@@ -9,7 +9,7 @@ resource "aws_connect_hours_of_operation" "EDB_HOO" {
 
     end_time {
       hours   = 23
-      minutes = 8
+      minutes = 0
     }
 
     start_time {
