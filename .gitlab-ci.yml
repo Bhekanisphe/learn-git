@@ -121,7 +121,7 @@ terraform_plan:
   script:
     - cd src/
     # Pass GitLab token via header
-    - export HTTP_HEADER_PRIVATE-TOKEN="$TOKEN"
+    - export HTTP_HEADER_PRIVATE_TOKEN="$TOKEN"
     - terraform init -backend-config="address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME"
     - terraform plan
 
