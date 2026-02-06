@@ -92,7 +92,7 @@ stages:
     - aws --version
     - aws s3 ls
 
-.terraform_validate:
+terraform_validate:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   stage: validate
   script:
@@ -131,19 +131,20 @@ terraform_plan:
     - terraform plan
     - terraform apply -auto-approve
 
-.terraform_apply:
+terraform_apply:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   stage: apply
-  variables:
-    GITLAB_ACCESS_TOKEN: $TOKEN
-    TF_STATE_NAME: "default"
   artifacts:
     paths: 
-      - /build
+      - build/
+  variables:
+    TF_STATE_NAME: "default"
   script:
-    - export HTTP_PASSWORD=$TOKEN
-    - terraform init -backend-config="address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME" -backend-config="lock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="unlock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="username=bhekani.mdletsher"-backend-config="password=$GITLAB_ACCESS_TOKEN" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5"
     - cd src/
-    - terraform init
+    - PROJECT_ID="78204586"
+    - TF_USERNAME="bhekani.mdletsher"
+    - TF_PASSWORD="$TOKEN"
+    - TF_ADDRESS="https://gitlab.com/api/v4/projects/${PROJECT_ID}/terraform/state/learn-gitlab-app"
+    - terraform init -backend-config=address=${TF_ADDRESS} -backend-config=lock_address=${TF_ADDRESS}/lock -backend-config=unlock_address=${TF_ADDRESS}/lock -backend-config=username=${TF_USERNAME} -backend-config=password=${TF_PASSWORD} -backend-config=lock_method=POST -backend-config=unlock_method=DELETE -backend-config=retry_wait_min=5
     - terraform apply -auto-approve
 
