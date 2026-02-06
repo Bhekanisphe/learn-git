@@ -117,20 +117,31 @@ terraform_plan:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   stage: plan
   artifacts:
-    paths: 
+    paths:
       - /build
   variables:
     TF_STATE_NAME: "default"
   script:
     - cd src/
+
+    # Use GitLab token as PRIVATE-TOKEN header via Terraform's supported env var
     - export TF_HTTP_HEADER_PRIVATE_TOKEN="$TOKEN"
-    - export TF_STATE_NAME=default 
+
+    # Optional: show lengths (safe)
     - echo "TOKEN length ${#TOKEN}"
-    - echo "HEADER length ${#HTTP_HEADER_PRIVATE_TOKEN}"
-    - env | grep -i token
-    - echo "$TOKEN"
-    
-    - terraform init -backend-config="address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME" -backend-config="lock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="unlock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5"
+    - echo "TF_HTTP_HEADER_PRIVATE_TOKEN length ${#TF_HTTP_HEADER_PRIVATE_TOKEN}"
+    - env | grep -E '^TF_HTTP_|_TOKEN='
+
+    # Reconfigure backend to ensure we don't reuse a previous (Basic Auth) config
+    - terraform init \
+        -backend-config="address=https://gitlab.com/api/v4/projects/78204586/terraform/state/${TF_STATE_NAME}" \
+        -backend-config="lock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/${TF_STATE_NAME}/lock" \
+        -backend-config="unlock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/${TF_STATE_NAME}/lock" \
+        -backend-config="lock_method=POST" \
+        -backend-config="unlock_method=DELETE" \
+        -backend-config="retry_wait_min=5" \
+        -reconfigure
+
     - terraform plan
 
 .terraform_apply:
