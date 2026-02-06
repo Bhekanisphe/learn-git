@@ -119,7 +119,7 @@ terraform_plan:
     paths: 
       - /build
   script:
-    - export TF_VAR_gitlab_token="$TOKEN
+    - export HTTP_PASSWORD="$TOKEN
     - terraform init -backend-config="address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME" -backend-config="lock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="unlock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="username=bhekani.mdletsher"-backend-config="password=$GITLAB_ACCESS_TOKEN" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5"
     - cd src/
     - terraform init
