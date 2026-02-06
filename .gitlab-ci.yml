@@ -122,10 +122,14 @@ terraform_plan:
   variables:
     TF_STATE_NAME: "default"
   script:
+    - cd src/
     - export HTTP_HEADER_PRIVATE_TOKEN="$TOKEN"
-    - export TF_STATE_NAME=default
+    - export TF_STATE_NAME=default 
+    - echo "TOKEN length ${#TOKEN}"
+    - echo "HEADER length ${#HTTP_HEADER_PRIVATE-TOKEN}"
+
     - echo "$TOKEN"
-    #- cd src/
+    
     - terraform init -backend-config="address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME" -backend-config="lock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="unlock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="username=bhekani.mdletsher" -backend-config="password=$GITLAB_ACCESS_TOKEN" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5"
     - terraform plan
 
