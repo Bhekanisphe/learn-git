@@ -109,7 +109,7 @@ terraform_plan:
     - terraform init
     - terraform plan
 
-terraform_apply:
+.terraform_apply:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
   stage: apply
   artifacts:
