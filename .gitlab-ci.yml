@@ -123,14 +123,19 @@ terraform_plan:
     TF_STATE_NAME: "default"
   script:
     - cd src/
-    - export TF_HTTP_HEADER_PRIVATE_TOKEN="$TOKEN"
-    - export TF_STATE_NAME=default 
-    - echo "TOKEN length ${#TOKEN}"
-    - echo "HEADER length ${#HTTP_HEADER_PRIVATE_TOKEN}"
-    - env | grep -i token
-    - echo "$TOKEN"
-    
-    - terraform init -backend-config="address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME" -backend-config="lock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="unlock_address=https://gitlab.com/api/v4/projects/78204586/terraform/state/$TF_STATE_NAME/lock" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5"
+    - PROJECT_ID="78204586"
+    - TF_USERNAME="bhekani.mdletsher"
+    - TF_PASSWORD="%TOKEN"
+    - TF_ADDRESS="https://gitlab.com/bhekani.mdletsher-group/api/v4/projects/${PROJECT_ID}/terraform/state/learn-gitlab-app"
+    - terraform init \
+        -backend-config=address=${TF_ADDRESS} \
+        -backend-config=lock_address=${TF_ADDRESS}/lock \
+        -backend-config=unlock_address=${TF_ADDRESS}/lock \
+        -backend-config=username=${TF_USERNAME} \
+        -backend-config=password=${TF_PASSWORD} \
+        -backend-config=lock_method=POST \
+        -backend-config=unlock_method=DELETE \
+        -backend-config=retry_wait_min=5
     - terraform plan
 
 .terraform_apply:
