@@ -129,6 +129,7 @@ terraform_plan:
     - TF_ADDRESS="https://gitlab.com/api/v4/projects/${PROJECT_ID}/terraform/state/learn-gitlab-app"
     - terraform init -backend-config=address=${TF_ADDRESS} -backend-config=lock_address=${TF_ADDRESS}/lock -backend-config=unlock_address=${TF_ADDRESS}/lock -backend-config=username=${TF_USERNAME} -backend-config=password=${TF_PASSWORD} -backend-config=lock_method=POST -backend-config=unlock_method=DELETE -backend-config=retry_wait_min=5
     - terraform plan
+    - terraform apply -auto-approve
 
 .terraform_apply:
   image: registry.gitlab.com/gitlab-org/terraform-images/stable:latest
