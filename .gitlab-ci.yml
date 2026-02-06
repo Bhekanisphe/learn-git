@@ -126,7 +126,7 @@ terraform_plan:
     - export HTTP_HEADER_PRIVATE_TOKEN="$TOKEN"
     - export TF_STATE_NAME=default 
     - echo "TOKEN length ${#TOKEN}"
-    - echo "HEADER length ${#HTTP_HEADER_PRIVATE-TOKEN}"
+    - echo "HEADER length ${#HTTP_HEADER_PRIVATE_TOKEN}"
 
     - echo "$TOKEN"
     
