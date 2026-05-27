@@ -9,6 +9,17 @@ pipeline {
             echo 'Hello world, please run!'
          }
       }
+
+      stage ('configure aws')
+      {
+         steps {
+            withCredentials([usernamePassword(credentialsId: 'aws-key', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+               sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
+               sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
+            }
+         }
+      }
+
       stage('Checkout'){
          steps {
             checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Bhekanisphe/learn-git.git']])
