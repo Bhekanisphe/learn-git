@@ -7,6 +7,10 @@ pipeline {
                // build steps here
                updateGitlabCommitStatus name: 'build', state: 'success'
            }
+          
        }
+      stage ('Say Hi') {
+         echo 'Hello world'
+      }
    }
 }
