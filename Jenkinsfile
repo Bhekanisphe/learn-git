@@ -1,7 +1,7 @@
 pipeline {
    agent any
    environment {
-      cred credential('aws-key')
+      cred = credentials('aws-key')
    }
    stages {
       stage ('Say Hi') {
