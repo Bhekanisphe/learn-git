@@ -11,7 +11,7 @@ pipeline {
        }
       stage ('Say Hi') {
          steps {
-            echo 'Hello world 3'
+            echo 'Hello world 100'
          }
       }
    }
