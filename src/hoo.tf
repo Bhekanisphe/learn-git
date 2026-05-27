@@ -1,6 +1,6 @@
 resource "aws_connect_hours_of_operation" "EDB_HOO" {
   instance_id = var.instance_id
-  name        = "Office Hours"
+  name        = "Office Hours - IaC"
   description = "Monday office hours"
   time_zone   = "EST"
 
