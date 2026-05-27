@@ -9,6 +9,11 @@ pipeline {
             echo 'Hello world, please run!'
          }
       }
+      stage('Checkout'){
+         steps {
+            checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Bhekanisphe/learn-git.git']])
+         }
+      }
       stage ("Terraform Init"){
          steps{
          sh 'terraform init'
