@@ -16,8 +16,9 @@ pipeline {
       }
       stage ("Terraform Init"){
          steps{
-            dir("src")
+            dir("src"){
             sh 'terraform init'
+            }
          }
       }
       stage ("Terraform Plan"){
