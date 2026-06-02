@@ -19,7 +19,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-key'
+                    credentialsId: 'aws-credentials-id'
                 ]]) {
                     sh '''
                         echo "Authenticated to AWS"
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-key'
+                    credentialsId: 'aws-credentials-id'
                 ]]) {
                     sh '''
                         terraform --version
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-key'
+                    credentialsId: 'aws-credentials-id'
                 ]]) {
                     sh '''
                         terraform plan -out=tfplan
@@ -62,7 +62,7 @@ pipeline {
 
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-key'
+                    credentialsId: 'aws-credentials-id'
                 ]]) {
                     sh '''
                         terraform apply -auto-approve tfplan
