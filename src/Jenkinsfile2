@@ -72,7 +72,7 @@ pipeline {
                     credentialsId: 'aws-credentials'
                 ]]) {
                     sh '''
-                        terraform apply -auto-approve //tfplan
+                        terraform apply -auto-approve tfplan
                     '''
                 }
             }
