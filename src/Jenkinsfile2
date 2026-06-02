@@ -17,6 +17,7 @@ pipeline {
 
         stage('Authenticate to AWS') {
             steps {
+                dir('src'){
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'aws-credentials'
@@ -27,10 +28,12 @@ pipeline {
                     '''
                 }
             }
+            }
         }
 
         stage('Terraform Init') {
             steps {
+                dir('src'){
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'aws-credentials'
@@ -40,11 +43,13 @@ pipeline {
                         terraform init -input=false
                     '''
                 }
+                }
             }
         }
 
         stage('Terraform Plan') {
             steps {
+                dir{
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'aws-credentials'
@@ -54,10 +59,12 @@ pipeline {
                     '''
                 }
             }
+            }
         }
 
         stage('Terraform Apply') {
             steps {
+                dir{
                 input message: 'Approve Terraform Apply?', ok: 'Apply'
 
                 withCredentials([[
@@ -68,6 +75,7 @@ pipeline {
                         terraform apply -auto-approve tfplan
                     '''
                 }
+            }
             }
         }
     }
