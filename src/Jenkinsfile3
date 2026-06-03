@@ -1,4 +1,4 @@
-@Library('jenkins-shared-lib') _
+@Library('jenkins-shared-lib@master') _
 
 terraformPipeline(
     region: 'af-south-1',
