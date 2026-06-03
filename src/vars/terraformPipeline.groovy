@@ -4,7 +4,7 @@ def call(Map config = [:]) {
         agent any
 
         environment {
-            AWS_DEFAULT_REGION = config.region ?: 'af-south-1'
+            AWS_DEFAULT_REGION = 'af-south-1'
             TF_IN_AUTOMATION   = 'true'
         }
 
