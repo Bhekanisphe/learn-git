@@ -1,4 +1,4 @@
 import {
   to = aws_connect_contact_flow.BS-Test
-  id = "${var.instance_id}:c97e5f73-bf06-4237-b0e7-ee5e4a20946e"
+  id = "${var.instance_id}:24285ce2-fdf0-4c86-8c1c-380b19d747af"
 }
