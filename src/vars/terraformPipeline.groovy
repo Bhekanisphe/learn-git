@@ -112,7 +112,7 @@ def call(Map config = [:]) {
                     git add generated.tf
                     git commit -m "Add generated terraform config [ci skip]" || echo "No changes to commit"
 
-                    git push origin HEAD:main
+                    git push https://github.com/Bhekanisphe/learn-git.git master
                     else
                     echo "generated.tf not found"
                     fi
