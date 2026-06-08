@@ -103,6 +103,26 @@ def call(Map config = [:]) {
             }
         }
 
+        stage('Commit Generated Config') {
+            steps {
+                dir(config.workingDir ?: 'src') {
+                    sh '''
+                    git config user.name "jenkins-bot"
+                    git config user.email "jenkins@company.com"
+
+                    if [ -f generated.tf ]; then
+                    git add generated.tf
+                    git commit -m "Add generated terraform config [ci skip]" || echo "No changes to commit"
+
+                    git push origin HEAD:main
+                    else
+                    echo "generated.tf not found"
+                    fi
+            '''
+        }
+    }
+}
+
         post {
             always {
                 echo 'Cleaning workspace...'
