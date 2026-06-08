@@ -51,3 +51,4 @@ resource "aws_connect_queue" "BS-Test-Technical" {
   tags = {
     "Name" = "Technical queries Queue",
   }
+}
