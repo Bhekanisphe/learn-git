@@ -13,6 +13,7 @@ dist-ssr
 build
 reports
 test-results
+usefulCommands.md
 *.local
 
 # Editor directories and files
