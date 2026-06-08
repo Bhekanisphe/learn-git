@@ -56,8 +56,7 @@ def call(Map config = [:]) {
                             credentialsId: config.awsCredentialsId ?: 'aws-credentials'
                         ]]) {
                             sh '''
-                                terraform plan -out=tfplan
-                                terraform plan -generate-config-out=generated.tf
+                                terraform plan -out=tfplan -generate-config-out=generated.tf
                             '''
                         }
                     }
