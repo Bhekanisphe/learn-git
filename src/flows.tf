@@ -8,12 +8,12 @@ resource "aws_connect_contact_flow" "BS-Test-Flow" {
   }
 }
 
-resource "aws_connect_contact_flow" "BS-Test-Flow2" {
+resource "aws_connect_contact_flow" "BS-Test" {
   instance_id  = var.instance_id
-  name         = "BS-Test-Flow2 - IaC"
-  description  = "Test Contact Flow 2 IaC"
+  name         = "BS-Test - IaC"
+  description  = "Test Contact Flow IaC"
   type         = "CONTACT_FLOW"
   tags = {
-    "Name"        = "Test Contact Flow IaC 2",
+    "Name"        = "Test Contact Flow IaC",
   }
 }
