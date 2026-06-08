@@ -1,26 +1,3 @@
-resource "aws_connect_queue" "EDB_CCS_Debit" {
-  instance_id           = var.instance_id
-  name                  = "EDB CCS Debit - IaC"
-  description           = "EDB CCS Debit Queue"
-  hours_of_operation_id = aws_connect_hours_of_operation.EDB_HOO.hours_of_operation_id
-
-  tags = {
-    "Name" = "Example Queue",
-  }
-}
-
-resource "aws_connect_queue" "EDB_CCS_Credit" {
-  instance_id           = var.instance_id
-  name                  = "EDB CCS Credit - IaC"
-  description           = "EDB CCS Credit Queue"
-  hours_of_operation_id = aws_connect_hours_of_operation.EDB_HOO.hours_of_operation_id
-
-  tags = {
-    "Name" = "Example Queue - 2",
-  }
-}
-
-
 resource "aws_connect_queue" "Technical_Wifi" {
   instance_id           = var.instance_id
   name                  = "Technical Wifi IaC"
@@ -43,3 +20,34 @@ resource "aws_connect_queue" "Technical_Laptop" {
   }
 }
 
+resource "aws_connect_queue" "BS-Test-General" {
+  instance_id           = var.instance_id
+  name                  = "BS-Test-General IaC"
+  description           = "General Queries Queue"
+  hours_of_operation_id = aws_connect_hours_of_operation.BS-Test-HOO.id
+
+  tags = {
+    "Name" = "General queries Queue",
+  }
+}
+
+resource "aws_connect_queue" "BS-Test-Sales" {
+  instance_id           = var.instance_id
+  name                  = "BS-Test-Sales IaC"
+  description           = "Sales Queries Queue"
+  hours_of_operation_id = aws_connect_hours_of_operation.BS-Test-HOO.id
+
+  tags = {
+    "Name" = "Sales queries Queue",
+  }
+}
+
+resource "aws_connect_queue" "BS-Test-Technical" {
+  instance_id           = var.instance_id
+  name                  = "BS-Test-Technical IaC"
+  description           = "Technical Queries Queue"
+  hours_of_operation_id = aws_connect_hours_of_operation.BS-Test-HOO.id
+
+  tags = {
+    "Name" = "Technical queries Queue",
+  }

@@ -89,3 +89,95 @@ config {
     "Name" = "Example Hours of Operation"
   }
 }
+
+resource "aws_connect_hours_of_operation" "BS-Test-HOO" {
+  instance_id = var.instance_id
+  name        = "BS-Test-HOO - IaC"
+  description = "Bs test flow office hours of operation"
+  time_zone   = "EST"
+
+  config {
+    day = "MONDAY"
+
+    end_time {
+      hours   = 17
+      minutes = 0
+    }
+
+    start_time {
+      hours   = 8
+      minutes = 0
+    }
+  }
+
+  config {
+    day = "WEDNESDAY"
+
+    end_time {
+      hours   = 21
+      minutes = 0
+    }
+
+    start_time {
+      hours   = 9
+      minutes = 0
+    }
+  }
+  config {
+    day = "THURSDAY"
+
+    end_time {
+      hours   = 21
+      minutes = 0
+    }
+
+    start_time {
+      hours   = 9
+      minutes = 0
+    }
+  }
+  config {
+    day = "FRIDAY"
+
+    end_time {
+      hours   = 21
+      minutes = 0
+    }
+
+    start_time {
+      hours   = 9
+      minutes = 0
+    }
+  }
+  config {
+    day = "SATURDAY"
+
+    end_time {
+      hours   = 21
+      minutes = 0
+    }
+
+    start_time {
+      hours   = 9
+      minutes = 0
+    }
+  }
+
+config {
+    day = "SUNDAY"
+
+    end_time {
+      hours   = 21
+      minutes = 0
+    }
+
+    start_time {
+      hours   = 9
+      minutes = 0
+    }
+  }
+
+  tags = {
+    "Name" = "BS Test flow Hours of Operation"
+  }
+}
