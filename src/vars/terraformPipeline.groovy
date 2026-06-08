@@ -101,9 +101,7 @@ def call(Map config = [:]) {
                     }
                 }
             }
-        }
-
-        stage('Commit Generated Config') {
+                    stage('Commit Generated Config') {
             steps {
                 dir(config.workingDir ?: 'src') {
                     sh '''
@@ -122,6 +120,7 @@ def call(Map config = [:]) {
         }
     }
 }
+        }
 
         post {
             always {
