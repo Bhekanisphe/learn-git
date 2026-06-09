@@ -103,29 +103,42 @@ def call(Map config = [:]) {
             }
 stage('Commit and Push generated.tf') {
     steps {
-        dir(config.workingDir ?: 'src'){
+        // DO NOT use dir(...) here. Stay in the root directory where '.git' lives.
         withCredentials([usernamePassword(credentialsId: 'git-creds', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-            sh '''
-                # Configure Git user (Required for commits)
-                git config user.name "Jenkins CI"
-                git config user.email "jenkins@yourdomain.com"
-                
-                # Add your remote URL using your credentials
-                git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@://github.com
+            script {
+                // Dynamically resolve the working path for the file target
+                def workDir = config.workingDir ?: 'src'
+                def targetFile = "${workDir}/generated.tf"
 
-                # Stage the generated file
-                git add generated.tf
+                sh """
+                    # 1. Configure local Git user signature
+                    git config user.name "Jenkins CI"
+                    git config user.email "jenkins@yourdomain.com"
+                    
+                    # 2. Extract current origin URL and inject credentials correctly
+                    # This avoids hardcoding your specific github.com repo organization/name
+                    CURRENT_URL=\$(git remote get-url origin | sed -E 's|https://||')
+                    git remote set-url origin "https://${GIT_USERNAME}:${GIT_PASSWORD}@\${CURRENT_URL}"
 
-                # Commit only if there are changes to avoid empty commit errors
-                git diff --staged --quiet || git commit -m "Automated update of generated.tf [skip ci]"
+                    # 3. Target the file in its actual subfolder location
+                    if [ -f "${targetFile}" ]; then
+                        echo "Found file at ${targetFile}. Staging..."
+                        git add ${targetFile}
 
-                # Push the changes back to the remote repository (ensure you are on the correct branch)
-                git push origin HEAD:${BRANCH_NAME}
-            '''
-        }
+                        # Commit safely if differences exist
+                        git diff --staged --quiet || git commit -m "Automated update of generated.tf [skip ci]"
+
+                        # Push back to the active tracking branch
+                        git push origin HEAD:${BRANCH_NAME}
+                    else
+                        echo "Warning: ${targetFile} not found! Skipping commit."
+                    fi
+                """
+            }
         }
     }
 }
+
 
         }
 
