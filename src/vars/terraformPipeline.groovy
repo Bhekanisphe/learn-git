@@ -128,7 +128,7 @@ stage('Commit and Push generated.tf') {
                     git diff --staged --quiet || git commit -m "Automated update of generated.tf [skip ci]"
 
                     # Push back up to the active branch
-                    git push origin HEAD:${BRANCH_NAME}
+                    git push origin HEAD:master
                 else
                     echo "ERROR: generated.tf could not be found anywhere in the workspace!"
                     echo "--- Current workspace files ---"
