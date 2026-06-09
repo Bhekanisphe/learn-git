@@ -1,6 +1,6 @@
-resource "aws_connect_contact_flow" "BM-Test-Flow" {
+resource "aws_connect_contact_flow" "BS-Test-Flow" {
   instance_id  = var.instance_id
-  name         = "BM-Test-Flow"
+  name         = "BS-Test-Flow"
   description  = "Test Contact Flow created by IaC"
   type         = "CONTACT_FLOW"
   tags = {
