@@ -101,25 +101,30 @@ def call(Map config = [:]) {
                     }
                 }
             }
-                    stage('Commit Generated Config') {
-            steps {
-                dir(config.workingDir ?: 'src') {
-                    sh '''
-                    git config user.name "Bhekanisphe"
-                    git config user.email "bhekani.mdletsher@gmail.com"
+stage('Commit and Push generated.tf') {
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'git-creds', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+            sh '''
+                # Configure Git user (Required for commits)
+                git config user.name "Jenkins CI"
+                git config user.email "jenkins@yourdomain.com"
+                
+                # Add your remote URL using your credentials
+                git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@://github.com
 
-                    if [ -f generated.tf ]; then
-                    git add generated.tf
-                    git commit -m "Add generated terraform config [ci skip]" || echo "No changes to commit"
+                # Stage the generated file
+                git add generated.tf
 
-                    git push https://github.com/Bhekanisphe/learn-git.git master
-                    else
-                    echo "generated.tf not found"
-                    fi
+                # Commit only if there are changes to avoid empty commit errors
+                git diff --staged --quiet || git commit -m "Automated update of generated.tf [skip ci]"
+
+                # Push the changes back to the remote repository (ensure you are on the correct branch)
+                git push origin HEAD:${BRANCH_NAME}
             '''
         }
     }
 }
+
         }
 
         post {
