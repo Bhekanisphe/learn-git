@@ -105,8 +105,8 @@ def call(Map config = [:]) {
             steps {
                 dir(config.workingDir ?: 'src') {
                     sh '''
-                    git config user.name "jenkins-bot"
-                    git config user.email "jenkins@company.com"
+                    git config user.name "Bhekanisphe"
+                    git config user.email "bhekani.mdletsher@gmail.com"
 
                     if [ -f generated.tf ]; then
                     git add generated.tf
