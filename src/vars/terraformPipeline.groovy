@@ -57,7 +57,6 @@ def call(Map config = [:]) {
                         ]]) {
                             sh '''
                                 terraform plan -out=tfplan
-                                terraform plan -generate-config-out=generated.tf
                             '''
                         }
                     }
