@@ -103,6 +103,7 @@ def call(Map config = [:]) {
             }
 stage('Commit and Push generated.tf') {
     steps {
+        dir(config.workingDir ?: 'src'){
         withCredentials([usernamePassword(credentialsId: 'git-creds', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
             sh '''
                 # Configure Git user (Required for commits)
@@ -121,6 +122,7 @@ stage('Commit and Push generated.tf') {
                 # Push the changes back to the remote repository (ensure you are on the correct branch)
                 git push origin HEAD:${BRANCH_NAME}
             '''
+        }
         }
     }
 }
