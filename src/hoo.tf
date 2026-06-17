@@ -5,7 +5,7 @@ resource "aws_connect_hours_of_operation" "BS-Test-HOO" {
   time_zone   = "EST"
 
   config {
-    for_each = toset(var.days_of_week)
+    for_each = var.days_of_week
     day = each.value
     start_time {
       hours   = 9
