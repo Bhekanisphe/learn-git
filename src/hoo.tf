@@ -6,6 +6,7 @@ resource "aws_connect_hours_of_operation" "BS-Test-HOO" {
   
   for_each = var.days_of_week
   config {
+    for_each = var.days_of_week
     day = each.value
     start_time {
       hours   = 9
