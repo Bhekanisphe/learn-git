@@ -3,8 +3,7 @@ resource "aws_connect_hours_of_operation" "BS-Test-HOO" {
   name        = "BS-Test-HOO - IaC"
   description = "Bs test flow office hours of operation"
   time_zone   = "EST"
-  
-  for_each = var.days_of_week
+
   config {
     for_each = var.days_of_week
     day = each.value
