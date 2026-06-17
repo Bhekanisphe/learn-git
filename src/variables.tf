@@ -6,7 +6,7 @@ variable "instance_id" {
 }
 
 variable "days_of_week" {
-    type = list(string)
+    type = set(string)
     description = "List of days of the week for hoo"
     default = ["MONDAY","TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
 }
